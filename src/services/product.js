@@ -28,8 +28,8 @@ module.exports.fetchProducts = (req, res) => new Promise(async (resolve, reject)
   let query = {}
 
   if (name) {
-    query['$text'] = {
-      '$search': name
+    query.name = {
+      '$regex': name, '$options' : 'i'
     }
   }
 
