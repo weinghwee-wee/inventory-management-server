@@ -22,6 +22,7 @@ const route = (requestMethod, routeName, method, noAuth) => {
 
 const { product } = require('./src/services')
 route('post', '/product', product.addProduct)
+route('get', '/products', product.fetchProducts)
 
 app.listen(PORT, () => {
   console.log(`Server is running at port ${PORT}`)
