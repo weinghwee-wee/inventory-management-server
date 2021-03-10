@@ -1,10 +1,11 @@
 const { product } = require('../services')
 const { Product } = require('./models')
 
-module.exports.createProduct = (name, image, sellPrice, buyPrice, availableStock) => new Promise(async (resolve, reject) => {
+module.exports.createProduct = (name, imageName, imageUrl, sellPrice, buyPrice, availableStock) => new Promise(async (resolve, reject) => {
   const newProduct =  new Product({  
     name,
-    image,
+    imageName,
+    imageUrl,
     sellPrice,
     buyPrice,
     availableStock,

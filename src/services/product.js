@@ -3,7 +3,8 @@ const { productDB } = require('../db')
 module.exports.addProduct =  (req, res) => new Promise(async (resolve, reject) => {
   const {
     name,
-    image,
+    imageName,
+    imageUrl,
     sellPrice,
     buyPrice,
     availableStock,
@@ -11,7 +12,8 @@ module.exports.addProduct =  (req, res) => new Promise(async (resolve, reject) =
 
   const response = await productDB.createProduct(
     name,
-    image,
+    imageName,
+    imageUrl,
     sellPrice,
     buyPrice,
     availableStock,
