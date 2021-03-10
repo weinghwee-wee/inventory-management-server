@@ -22,6 +22,7 @@ const route = (requestMethod, routeName, method, noAuth) => {
 
 const { product } = require('./src/services')
 route('post', '/product', product.addProduct)
+route('delete', '/product/:id', product.removeProduct)
 route('get', '/products', product.fetchProducts)
 
 app.listen(PORT, () => {

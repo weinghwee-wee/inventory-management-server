@@ -39,3 +39,11 @@ module.exports.fetchProducts = (req, res) => new Promise(async (resolve, reject)
 
   resolve(response)
 })
+
+module.exports.removeProduct = (req, res) => new Promise(async (resolve, reject) => {
+  const { id } = req.params
+  
+  const response = await productDB.deleteProduct(id)
+
+  resolve(response)
+})

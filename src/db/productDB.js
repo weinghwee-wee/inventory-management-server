@@ -26,3 +26,9 @@ module.exports.retrieveProducts = (query) => new Promise(async (resolve, reject)
 
   resolve(products)
 })
+
+module.exports.deleteProduct = (id) => new Promise(async (resolve, reject) => {
+  const product = await Product.findOneAndDelete({_id: id})
+
+  resolve(product)
+})
