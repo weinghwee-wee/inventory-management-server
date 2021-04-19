@@ -24,6 +24,7 @@ const { product } = require('./src/services')
 route('post', '/product', product.addProduct)
 route('delete', '/product/:id', product.removeProduct)
 route('get', '/products', product.fetchProducts)
+route('put', '/product/:id', product.editProduct)
 
 app.listen(PORT, () => {
   console.log(`Server is running at port ${PORT}`)

@@ -47,3 +47,15 @@ module.exports.removeProduct = (req, res) => new Promise(async (resolve, reject)
 
   resolve(response)
 })
+
+module.exports.editProduct = (req, res) => new Promise(async (resolve, reject) => {
+  const { id } = req.params
+  
+  const response = await productDB.updateProduct(id, req.body)
+
+  if (response._id) {
+    return resolve(response)
+  }
+
+  reject(response)
+})

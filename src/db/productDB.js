@@ -32,3 +32,13 @@ module.exports.deleteProduct = (id) => new Promise(async (resolve, reject) => {
 
   resolve(product)
 })
+
+module.exports.updateProduct = (id, updateObject) => new Promise(async (resolve, reject) => {
+  try {
+    const updatedProduct = await Product.findOneAndUpdate({ _id: id, }, updateObject, { new: true })
+     
+    resolve(updatedProduct)
+  } catch (e) {
+    resolve(e)
+  }
+})
