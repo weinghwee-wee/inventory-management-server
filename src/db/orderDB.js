@@ -20,11 +20,11 @@ module.exports.createOrder = (name, location, phoneNo, total, items) => new Prom
   }
 })
 
-// module.exports.retrieveProducts = (query) => new Promise(async (resolve, reject) => {
-//   const products = await Product.find(query)
+module.exports.retrieveOrders = (query) => new Promise(async (resolve, reject) => {
+  const products = await Order.find(query)
 
-//   resolve(products)
-// })
+  resolve(products)
+})
 
 // module.exports.deleteProduct = (id) => new Promise(async (resolve, reject) => {
 //   const product = await Product.findOneAndDelete({_id: id})

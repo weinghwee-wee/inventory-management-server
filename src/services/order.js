@@ -22,21 +22,21 @@ module.exports.addOrder =  (req, res) => new Promise(async (resolve, reject) => 
   reject(response)
 })
 
-// module.exports.fetchProducts = (req, res) => new Promise(async (resolve, reject) => {
-//   const { name } = req.query
+module.exports.fetchOrders = (req, res) => new Promise(async (resolve, reject) => {
+  // const { name } = req.query
 
-//   let query = {}
+  let query = {}
 
-//   if (name) {
-//     query.name = {
-//       '$regex': name, '$options' : 'i'
-//     }
-//   }
+  // if (name) {
+  //   query.name = {
+  //     '$regex': name, '$options' : 'i'
+  //   }
+  // }
 
-//   const response = await productDB.retrieveProducts(query)
+  const response = await orderDB.retrieveOrders(query)
 
-//   resolve(response)
-// })
+  resolve(response)
+})
 
 // module.exports.removeProduct = (req, res) => new Promise(async (resolve, reject) => {
 //   const { id } = req.params
