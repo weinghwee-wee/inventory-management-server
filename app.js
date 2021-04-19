@@ -26,6 +26,9 @@ route('delete', '/product/:id', product.removeProduct)
 route('get', '/products', product.fetchProducts)
 route('put', '/product/:id', product.editProduct)
 
+const { order } = require('./src/services')
+route('post', '/order', order.addOrder)
+
 app.listen(PORT, () => {
   console.log(`Server is running at port ${PORT}`)
 })
