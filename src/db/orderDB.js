@@ -26,11 +26,11 @@ module.exports.retrieveOrders = (query) => new Promise(async (resolve, reject) =
   resolve(products)
 })
 
-// module.exports.deleteProduct = (id) => new Promise(async (resolve, reject) => {
-//   const product = await Product.findOneAndDelete({_id: id})
+module.exports.deleteOrder = (id) => new Promise(async (resolve, reject) => {
+  const order = await Order.findOneAndDelete({_id: id})
 
-//   resolve(product)
-// })
+  resolve(order)
+})
 
 // module.exports.updateProduct = (id, updateObject) => new Promise(async (resolve, reject) => {
 //   try {

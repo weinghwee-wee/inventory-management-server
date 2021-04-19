@@ -38,13 +38,13 @@ module.exports.fetchOrders = (req, res) => new Promise(async (resolve, reject) =
   resolve(response)
 })
 
-// module.exports.removeProduct = (req, res) => new Promise(async (resolve, reject) => {
-//   const { id } = req.params
+module.exports.removeOrder = (req, res) => new Promise(async (resolve, reject) => {
+  const { id } = req.params
   
-//   const response = await productDB.deleteProduct(id)
+  const response = await orderDB.deleteOrder(id)
 
-//   resolve(response)
-// })
+  resolve(response)
+})
 
 // module.exports.editProduct = (req, res) => new Promise(async (resolve, reject) => {
 //   const { id } = req.params
