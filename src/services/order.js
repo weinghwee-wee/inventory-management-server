@@ -7,6 +7,7 @@ module.exports.addOrder =  (req, res) => new Promise(async (resolve, reject) => 
     phoneNo,
     total,
     items,
+    shippingFee
   } = req.body
 
   const response = await orderDB.createOrder(
@@ -15,6 +16,7 @@ module.exports.addOrder =  (req, res) => new Promise(async (resolve, reject) => 
     phoneNo,
     total,
     items,
+    shippingFee
   )
 
   if (response._id)  return resolve(response)

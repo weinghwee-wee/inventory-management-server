@@ -26,7 +26,11 @@ const orderSchema = new mongoose.Schema({
     required: true,
   },
   items: {
-    type: Array,
+    type: Object,
+    required: true
+  },
+  shippingFee: {
+    type: Number,
     required: true
   }
 }, {
