@@ -30,6 +30,7 @@ const { order } = require('./src/services')
 route('post', '/order', order.addOrder)
 route('get', '/orders', order.fetchOrders)
 route('delete', '/order/:id', order.removeOrder)
+route('put', '/order/:id', order.editOrder)
 
 app.listen(PORT, () => {
   console.log(`Server is running at port ${PORT}`)

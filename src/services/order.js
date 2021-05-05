@@ -48,14 +48,14 @@ module.exports.removeOrder = (req, res) => new Promise(async (resolve, reject) =
   resolve(response)
 })
 
-// module.exports.editProduct = (req, res) => new Promise(async (resolve, reject) => {
-//   const { id } = req.params
+module.exports.editOrder = (req, res) => new Promise(async (resolve, reject) => {
+  const { id } = req.params
   
-//   const response = await productDB.updateProduct(id, req.body)
+  const response = await orderDB.updateOrder(id, req.body)
 
-//   if (response._id) {
-//     return resolve(response)
-//   }
+  if (response._id) {
+    return resolve(response)
+  }
 
-//   reject(response)
-// })
+  reject(response)
+})

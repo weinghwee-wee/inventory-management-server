@@ -33,12 +33,12 @@ module.exports.deleteOrder = (id) => new Promise(async (resolve, reject) => {
   resolve(order)
 })
 
-// module.exports.updateProduct = (id, updateObject) => new Promise(async (resolve, reject) => {
-//   try {
-//     const updatedProduct = await Product.findOneAndUpdate({ _id: id, }, updateObject, { new: true })
+module.exports.updateOrder = (id, updateObject) => new Promise(async (resolve, reject) => {
+  try {
+    const updatedOrder = await Order.findOneAndUpdate({ _id: id, }, updateObject, { new: true })
      
-//     resolve(updatedProduct)
-//   } catch (e) {
-//     resolve(e)
-//   }
-// })
+    resolve(updatedOrder)
+  } catch (e) {
+    resolve(e)
+  }
+})
