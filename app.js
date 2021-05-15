@@ -16,21 +16,25 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-const route = (requestMethod, routeName, method, noAuth) => {
-  return app[requestMethod](routeName, requestHandler(method, noAuth))
+const publicRoute = (requestMethod, routeName, method) => {
+  return app[requestMethod](routeName, requestHandler(method, false))
+}
+
+const privateRoute = (requestMethod, routeName, method) => {
+  return app[requestMethod](routeName, requestHandler(method, true))
 }
 
 const { product } = require('./src/services')
-route('post', '/product', product.addProduct)
-route('delete', '/product/:id', product.removeProduct)
-route('get', '/products', product.fetchProducts)
-route('put', '/product/:id', product.editProduct)
+privateRoute('post', '/product', product.addProduct)
+privateRoute('delete', '/product/:id', product.removeProduct)
+privateRoute('get', '/products', product.fetchProducts)
+privateRoute('put', '/product/:id', product.editProduct)
 
 const { order } = require('./src/services')
-route('post', '/order', order.addOrder)
-route('get', '/orders', order.fetchOrders)
-route('delete', '/order/:id', order.removeOrder)
-route('put', '/order/:id', order.editOrder)
+privateRoute('post', '/order', order.addOrder)
+privateRoute('get', '/orders', order.fetchOrders)
+privateRoute('delete', '/order/:id', order.removeOrder)
+privateRoute('put', '/order/:id', order.editOrder)
 
 app.listen(PORT, () => {
   console.log(`Server is running at port ${PORT}`)
