@@ -30,7 +30,9 @@ module.exports.addProduct =  (req, res) => new Promise(async (resolve, reject) =
 module.exports.fetchProducts = (req, res) => new Promise(async (resolve, reject) => {
   const { name } = req.query
 
-  let query = {}
+  let query = {
+    createdBy: req.user._id
+  }
 
   if (name) {
     query.name = {
