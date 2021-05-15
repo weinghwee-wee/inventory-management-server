@@ -3,7 +3,7 @@ const User = require('../db/models/User')
 const Token = require('../db/models/Token')
 
 const auth = (authFlag) => {
-  if (authFlag) {
+  if (!authFlag) {
     return (req, res, next) => {
       next()
     }

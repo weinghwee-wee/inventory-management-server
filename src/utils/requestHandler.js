@@ -1,4 +1,4 @@
-const authMiddlware = require('../middlewares/authMiddleware')
+const { authentication } = require('../middlewares')
 
 const requestHandler = (method, authFlag) => {
   const methodHandler = async (req, res, next) => {
@@ -27,7 +27,7 @@ const requestHandler = (method, authFlag) => {
   }
 
   return [
-    authMiddlware(authFlag),
+    authentication(authFlag),
     methodHandler,
     createResponse
   ]
