@@ -1,6 +1,8 @@
 const { orderDB } = require('../db')
 
 module.exports.addOrder =  (req, res) => new Promise(async (resolve, reject) => {
+  const { _id } = req.user
+
   const {
     name,
     location,
@@ -16,7 +18,8 @@ module.exports.addOrder =  (req, res) => new Promise(async (resolve, reject) => 
     phoneNo,
     total,
     items,
-    shippingFee
+    shippingFee,
+    _id
   )
 
   if (response._id)  return resolve(response)

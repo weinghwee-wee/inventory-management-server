@@ -1,24 +1,33 @@
 const { product } = require('../services')
 const { Product } = require('./models')
 
-module.exports.createProduct = (name, imageName, imageUrl, sellPrice, buyPrice, availableStock) => new Promise(async (resolve, reject) => {
-  const newProduct =  new Product({  
+module.exports.createProduct = (
     name,
     imageName,
     imageUrl,
     sellPrice,
     buyPrice,
     availableStock,
-    totalSold: 0
-  })
+    createdBy
+  ) => new Promise(async (resolve, reject) => {
+    const newProduct =  new Product({  
+      name,
+      imageName,
+      imageUrl,
+      sellPrice,
+      buyPrice,
+      availableStock,
+      totalSold: 0,
+      createdBy
+    })
 
-  try {
-    const product = await newProduct.save()
+    try {
+      const product = await newProduct.save()
 
-    resolve(product)
-  } catch (e) {
-    resolve(e)
-  }
+      resolve(product)
+    } catch (e) {
+      resolve(e)
+    }
 })
 
 module.exports.retrieveProducts = (query) => new Promise(async (resolve, reject) => {

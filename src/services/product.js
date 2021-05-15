@@ -1,6 +1,8 @@
 const { productDB } = require('../db')
 
 module.exports.addProduct =  (req, res) => new Promise(async (resolve, reject) => {
+  const { _id } = req.user
+
   const {
     name,
     imageName,
@@ -17,6 +19,7 @@ module.exports.addProduct =  (req, res) => new Promise(async (resolve, reject) =
     sellPrice,
     buyPrice,
     availableStock,
+    _id
   )
 
   if (response._id)  return resolve(response)

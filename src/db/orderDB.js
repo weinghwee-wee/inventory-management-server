@@ -1,6 +1,6 @@
 const { Order } = require('./models')
 
-module.exports.createOrder = (name, location, phoneNo, total, items, shippingFee) => new Promise(async (resolve, reject) => {
+module.exports.createOrder = (name, location, phoneNo, total, items, shippingFee, createdBy) => new Promise(async (resolve, reject) => {
   const newOrder =  new Order({  
     name,
     location,
@@ -9,7 +9,8 @@ module.exports.createOrder = (name, location, phoneNo, total, items, shippingFee
     status: 'New',
     total,
     items,
-    shippingFee
+    shippingFee,
+    createdBy
   })
 
   try {
