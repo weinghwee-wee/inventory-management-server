@@ -29,6 +29,7 @@ publicRoute('post', '/user', user.registerUser)
 
 const { auth } = require('./src/services')
 publicRoute('post', '/login', auth.loginUser)
+publicRoute('post', '/logout', auth.logoutUser)
 
 const { product } = require('./src/services')
 privateRoute('post', '/product', product.addProduct)

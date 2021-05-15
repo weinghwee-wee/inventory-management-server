@@ -16,3 +16,11 @@ module.exports.loginUser = (req, res) => new Promise(async (resolve, reject) => 
     reject(e.message)
   }
 })
+
+module.exports.logoutUser = (req, res) => new Promise(async (resolve, reject) => {
+  const { token } = req.body
+
+  await tokenDB.deleteToken(token)
+
+  resolve('ok')
+})
