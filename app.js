@@ -27,6 +27,9 @@ const privateRoute = (requestMethod, routeName, method) => {
 const { user } = require('./src/services')
 publicRoute('post', '/user', user.registerUser)
 
+const { auth } = require('./src/services')
+publicRoute('post', '/login', auth.loginUser)
+
 const { product } = require('./src/services')
 privateRoute('post', '/product', product.addProduct)
 privateRoute('delete', '/product/:id', product.removeProduct)
