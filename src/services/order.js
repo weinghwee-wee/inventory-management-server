@@ -13,10 +13,10 @@ module.exports.addOrder =  (req, res) => new Promise(async (resolve, reject) => 
     shippingFee
   } = req.body
 
-  const availabilityProblem = await productHelpers.checkProductAvailability(items)
+  const availabilityProblem = await productHelpers.checkAndUpdateProduct(items)
 
   if (availabilityProblem) {
-    reject(availabilityProblem)
+    return reject(availabilityProblem)
   }
 
   const response = await orderDB.createOrder(
@@ -63,10 +63,10 @@ module.exports.removeOrder = (req, res) => new Promise(async (resolve, reject) =
 module.exports.editOrder = (req, res) => new Promise(async (resolve, reject) => {
   const { id } = req.params
 
-  const availabilityProblem = await productHelpers.checkProductAvailability(items)
+  const availabilityProblem = await productHelpers.checkAndUpdateProduct(req.body.items, id)
 
   if (availabilityProblem) {
-    reject(availabilityProblem)
+    return reject(availabilityProblem)
   }
   
   const response = await orderDB.updateOrder(id, req.body)
