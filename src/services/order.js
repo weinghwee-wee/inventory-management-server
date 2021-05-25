@@ -1,4 +1,5 @@
 const { orderDB } = require('../db')
+const { productHelpers } = require('../helpers')
 
 module.exports.addOrder =  (req, res) => new Promise(async (resolve, reject) => {
   const { _id } = req.user
@@ -11,6 +12,12 @@ module.exports.addOrder =  (req, res) => new Promise(async (resolve, reject) => 
     items,
     shippingFee
   } = req.body
+
+  const availabilityProblem = await productHelpers.checkProductAvailability(items)
+
+  if (availabilityProblem) {
+    reject(availabilityProblem)
+  }
 
   const response = await orderDB.createOrder(
     name,
@@ -55,6 +62,12 @@ module.exports.removeOrder = (req, res) => new Promise(async (resolve, reject) =
 
 module.exports.editOrder = (req, res) => new Promise(async (resolve, reject) => {
   const { id } = req.params
+
+  const availabilityProblem = await productHelpers.checkProductAvailability(items)
+
+  if (availabilityProblem) {
+    reject(availabilityProblem)
+  }
   
   const response = await orderDB.updateOrder(id, req.body)
 
