@@ -51,3 +51,13 @@ module.exports.updateProduct = (id, updateObject) => new Promise(async (resolve,
     resolve(e)
   }
 })
+
+module.exports.restockProduct = (id, amount) => new Promise(async (resolve, reject) => {
+  try {
+    const updatedProduct = await Product.findOneAndUpdate({ _id: id, }, { $inc: { availableStock: amount } } , { new: true })
+     
+    resolve(updatedProduct)
+  } catch (e) {
+    resolve(e)
+  }
+})

@@ -64,3 +64,15 @@ module.exports.editProduct = (req, res) => new Promise(async (resolve, reject) =
 
   reject(response)
 })
+
+module.exports.restockProduct = (req, res) => new Promise(async (resolve, reject) => {
+  const { id, amount } = req.body
+
+  const response = await productDB.restockProduct(id, amount)
+
+  if (response._id) {
+    return resolve(response)
+  }
+
+  reject(response)
+})

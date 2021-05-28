@@ -36,6 +36,7 @@ privateRoute('post', '/product', product.addProduct)
 privateRoute('delete', '/product/:id', product.removeProduct)
 privateRoute('get', '/products', product.fetchProducts)
 privateRoute('put', '/product/:id', product.editProduct)
+privateRoute('post', '/restock', product.restockProduct)
 
 const { order } = require('./src/services')
 privateRoute('post', '/order', order.addOrder)
