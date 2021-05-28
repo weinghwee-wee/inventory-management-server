@@ -1,6 +1,7 @@
 const { productDB, orderDB } = require('../db');
+const _ = require('lodash')
 
-module.exports.checkAndUpdateProduct = async (products, orderId) => {
+module.exports.checkProductAvailability = async (products, orderId) => {
   let productIds = [];
   let oldAmount = 0;
   let orderDetails;
@@ -31,12 +32,51 @@ module.exports.checkAndUpdateProduct = async (products, orderId) => {
       if (itemNetAmount > availableStock) {
         return `You ${orderId ? "added" : "ordered"} ${itemNetAmount} ${name} but there is only ${availableStock} left. Please change the amount!`;
       }
-
-      const newAvailableStock = availableStock - itemNetAmount;
-
-      await productDB.updateProduct(_id, { availableStock: newAvailableStock });
     }
   }
 
   return null;
 };
+
+module.exports.updateProductStock = async (items, orderId, flag) => {
+  const onCreate = async () => {
+    console.log('oncreate')
+    for (let i = 0; i < items.length; i++) {
+      const { _id, amount } = items[i]
+  
+      await productDB.updateProduct(_id,  { $inc: { availableStock: -amount } }) 
+    }
+  }
+  
+  const onDelete = async () => {
+    console.log('ondelete')
+    const { items } = await orderDB.getOrderById(orderId)
+  
+    for (let i = 0; i < items.length; i++) {
+      const { _id, amount } = items[i]
+  
+      await productDB.updateProduct(_id,  { $inc: { availableStock: amount } }) 
+    }
+  }
+  
+  const onEdit = async () => {
+    console.log('onedit')
+    await onDelete();
+    await onCreate();
+  }
+
+  switch (flag) {
+    case 'create':
+      await onCreate()
+
+      break
+    case 'delete':
+      await onDelete()
+
+      break
+    case 'edit': 
+      await onEdit()
+
+      break
+  }
+}

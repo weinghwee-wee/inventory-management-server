@@ -13,7 +13,7 @@ module.exports.addOrder =  (req, res) => new Promise(async (resolve, reject) => 
     shippingFee
   } = req.body
 
-  const availabilityProblem = await productHelpers.checkAndUpdateProduct(items)
+  const availabilityProblem = await productHelpers.checkProductAvailability(req.body.items)
 
   if (availabilityProblem) {
     return reject(availabilityProblem)
@@ -28,6 +28,8 @@ module.exports.addOrder =  (req, res) => new Promise(async (resolve, reject) => 
     shippingFee,
     _id
   )
+
+  await productHelpers.updateProductStock(items, null, 'create')
 
   if (response._id)  return resolve(response)
 
@@ -55,6 +57,8 @@ module.exports.fetchOrders = (req, res) => new Promise(async (resolve, reject) =
 module.exports.removeOrder = (req, res) => new Promise(async (resolve, reject) => {
   const { id } = req.params
   
+  await productHelpers.updateProductStock([], id, 'delete')
+
   const response = await orderDB.deleteOrder(id)
 
   resolve(response)
@@ -63,11 +67,13 @@ module.exports.removeOrder = (req, res) => new Promise(async (resolve, reject) =
 module.exports.editOrder = (req, res) => new Promise(async (resolve, reject) => {
   const { id } = req.params
 
-  const availabilityProblem = await productHelpers.checkAndUpdateProduct(req.body.items, id)
+  const availabilityProblem = await productHelpers.checkProductAvailability(req.body.items, id)
 
   if (availabilityProblem) {
     return reject(availabilityProblem)
   }
+
+  await productHelpers.updateProductStock(req.body.items, id, 'edit')
   
   const response = await orderDB.updateOrder(id, req.body)
 

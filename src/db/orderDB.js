@@ -43,3 +43,9 @@ module.exports.updateOrder = (id, updateObject) => new Promise(async (resolve, r
     resolve(e)
   }
 })
+
+module.exports.getOrderById = (id) => new Promise(async (resolve, reject) => {
+  const order = await Order.findById(id)
+
+  resolve(order)
+})
