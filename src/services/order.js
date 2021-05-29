@@ -66,14 +66,17 @@ module.exports.removeOrder = (req, res) => new Promise(async (resolve, reject) =
 
 module.exports.editOrder = (req, res) => new Promise(async (resolve, reject) => {
   const { id } = req.params
+  const { status, items } = req.body
 
-  const availabilityProblem = await productHelpers.checkProductAvailability(req.body.items, id)
+  if (!status) {
+    const availabilityProblem = await productHelpers.checkProductAvailability(items, id)
 
-  if (availabilityProblem) {
-    return reject(availabilityProblem)
+    if (availabilityProblem) {
+      return reject(availabilityProblem)
+    }
+  
+    await productHelpers.updateProductStock(items, id, 'edit')
   }
-
-  await productHelpers.updateProductStock(req.body.items, id, 'edit')
   
   const response = await orderDB.updateOrder(id, req.body)
 
