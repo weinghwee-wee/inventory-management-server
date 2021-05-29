@@ -1,4 +1,4 @@
-const { productDB } = require('../db')
+const { productDB, purchaseDB } = require('../db')
 
 module.exports.addProduct =  (req, res) => new Promise(async (resolve, reject) => {
   const { _id } = req.user
@@ -67,10 +67,22 @@ module.exports.editProduct = (req, res) => new Promise(async (resolve, reject) =
 
 module.exports.restockProduct = (req, res) => new Promise(async (resolve, reject) => {
   const { id, amount } = req.body
+  const { _id: userId } = req.user
 
   const response = await productDB.restockProduct(id, amount)
 
   if (response._id) {
+    const { name, _id, sellPrice } = response
+
+    await purchaseDB.createPurchase(
+      name,
+      sellPrice,
+      sellPrice * amount,
+      amount,
+      _id,
+      userId
+    )
+    
     return resolve(response)
   }
 
